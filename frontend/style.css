@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto Mono', monospace; /* Font sáng tạo, hiện đại */
     background-color: #121212; /* Nền đen */
     height: 100vh;
     display: flex;
@@ -32,9 +32,9 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 5rem; /* Kích thước lớn */
-    color: rgba(255, 255, 255, 0.05); /* Màu trắng mờ nhạt */
-    font-family: 'Poppins', sans-serif; /* Phông chữ cách điệu */
+    font-size: 4rem; /* Kích thước lớn */
+    color: rgba(255, 255, 255, 0.08); /* Màu trắng mờ nhưng đậm hơn */
+    font-family: 'Roboto Mono', monospace; /* Font hiện đại */
     font-weight: bold;
     pointer-events: none; /* Không ảnh hưởng khi nhấn chuột */
     z-index: 0; /* Nằm dưới các phần tử khác */
@@ -91,8 +91,8 @@ body {
 #send-button {
     padding: 15px 20px;
     font-size: 1.1rem;
-    background-color: #3a7cce; /* Xanh lam nhạt */
-    color: white;
+    background-color: #ffffff; /* Màu trắng */
+    color: #000000; /* Chữ đen */
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -100,7 +100,8 @@ body {
 }
 
 #send-button:hover {
-    background-color: #3566a6; /* Xanh đậm hơn khi hover */
+    background-color: #dcdcdc; /* Xám nhạt hơn khi hover */
+    color: #000000;
 }
 
 /* Thanh cuộn */
