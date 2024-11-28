@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto Mono', monospace; /* Font sáng tạo, hiện đại */
+    font-family: 'Roboto Mono', monospace; /* Font sáng tạo */
     background-color: #121212; /* Nền đen */
     height: 100vh;
     display: flex;
@@ -33,9 +33,10 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 4rem; /* Kích thước lớn */
-    color: rgba(255, 255, 255, 0.08); /* Màu trắng mờ nhưng đậm hơn */
+    color: rgba(255, 255, 255, 0.15); /* Màu trắng sáng hơn */
     font-family: 'Roboto Mono', monospace; /* Font hiện đại */
     font-weight: bold;
+    text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5); /* Viền trắng sáng đậm */
     pointer-events: none; /* Không ảnh hưởng khi nhấn chuột */
     z-index: 0; /* Nằm dưới các phần tử khác */
 }
@@ -59,13 +60,13 @@ body {
 
 .message.user {
     align-self: flex-end;
-    background-color: #3b3b3b; /* Xám đậm */
+    background-color: #444; /* Xám đậm sáng hơn một chút */
     color: #ffffff; /* Chữ trắng */
 }
 
 .message.bot {
     align-self: flex-start;
-    background-color: #2c2c2c; /* Xám nhạt */
+    background-color: #383838; /* Xám nhạt hơn */
     color: #d3d3d3; /* Chữ xám sáng */
 }
 
