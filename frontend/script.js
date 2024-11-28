@@ -3,12 +3,19 @@ const userInput = document.getElementById('user-input');
 const messagesDiv = document.getElementById('messages');
 
 // Hàm thêm tin nhắn vào giao diện
-function addMessage(content, sender) {
+function addMessage(content, sender, isMarkdown = false) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', sender);
-    messageDiv.textContent = content;
+
+    // Kiểm tra xem nội dung có phải Markdown không
+    if (isMarkdown) {
+        messageDiv.innerHTML = marked(content); // Chuyển Markdown thành HTML
+    } else {
+        messageDiv.textContent = content; // Hiển thị văn bản thông thường
+    }
+
     messagesDiv.appendChild(messageDiv);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    messagesDiv.scrollTop = messagesDiv.scrollHeight; // Cuộn xuống tin nhắn mới nhất
 }
 
 // Hàm gửi yêu cầu tới API
@@ -36,7 +43,7 @@ async function sendMessage() {
 
         // Kiểm tra và hiển thị phản hồi từ bot
         if (data.reply) {
-            addMessage(data.reply, 'bot'); // Hiển thị phản hồi từ bot
+            addMessage(data.reply, 'bot', true); // Hiển thị phản hồi từ bot, xử lý Markdown
         } else if (data.error) {
             addMessage(data.error, 'bot'); // Hiển thị thông báo lỗi từ backend
         } else {
