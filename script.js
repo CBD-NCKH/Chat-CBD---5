@@ -9,7 +9,7 @@ function addMessage(content, sender, isMarkdown = false) {
 
     // Kiểm tra xem nội dung có phải Markdown không
     if (isMarkdown) {
-        messageDiv.innerHTML = marked(content); // Chuyển Markdown thành HTML
+        messageDiv.innerHTML = marked.parse(content); // Sử dụng marked.parse() để chuyển đổi Markdown
     } else {
         messageDiv.textContent = content; // Hiển thị văn bản thông thường
     }
