@@ -56,6 +56,7 @@ body {
     padding: 15px;
     border-radius: 12px;
     margin-bottom: 10px;
+    line-height: 1.5; /* Tăng khoảng cách dòng để dễ đọc */
 }
 
 .message.user {
@@ -68,6 +69,37 @@ body {
     align-self: flex-start;
     background-color: #383838; /* Xám nhạt hơn */
     color: #d3d3d3; /* Chữ xám sáng */
+}
+
+/* Định dạng Markdown trong tin nhắn bot */
+.message.bot h1, .message.bot h2, .message.bot h3 {
+    color: #ffffff; /* Màu tiêu đề */
+    margin: 10px 0;
+}
+
+.message.bot p {
+    margin: 10px 0;
+    color: #d3d3d3; /* Màu chữ xám sáng */
+}
+
+.message.bot ul, .message.bot ol {
+    margin: 10px 20px;
+    padding-left: 20px;
+}
+
+.message.bot li {
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+
+.message.bot strong {
+    font-weight: bold;
+    color: #ffffff; /* Chữ in đậm sáng hơn */
+}
+
+.message.bot em {
+    font-style: italic;
+    color: #cccccc; /* Chữ in nghiêng màu xám nhạt */
 }
 
 /* Input và nút gửi */
