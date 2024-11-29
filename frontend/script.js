@@ -7,29 +7,37 @@ function addMessage(content, sender, isMarkdown = false, typingSpeed = 30) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', sender);
 
-    // Nếu là Markdown, xử lý thành HTML trước khi thêm vào giao diện
+    // Nếu là Markdown, xử lý thành HTML trước
     if (isMarkdown) {
-        content = marked.parse(content); // Chuyển đổi Markdown thành HTML
+        content = marked.parse(content); // Chuyển đổi toàn bộ Markdown thành HTML
     }
 
     if (sender === 'bot') {
         // Hiệu ứng gõ từng ký tự cho tin nhắn bot
         let currentIndex = 0;
 
-        // Chia nhỏ nội dung HTML thành các ký tự
-        const characters = Array.from(content);
+        // Tạo container tạm thời để giữ nội dung HTML hoàn chỉnh
+        const tempContainer = document.createElement('div');
+        tempContainer.innerHTML = content; // Đưa nội dung HTML đầy đủ vào container
+
+        // Lấy nội dung text mà không làm hỏng cấu trúc HTML
+        const rawText = tempContainer.textContent || tempContainer.innerText;
 
         const typeEffect = setInterval(() => {
-            if (currentIndex < characters.length) {
-                messageDiv.innerHTML += characters[currentIndex]; // Thêm từng ký tự
+            if (currentIndex < rawText.length) {
+                // Gõ thêm ký tự vào nội dung
+                messageDiv.textContent += rawText[currentIndex];
                 currentIndex++;
             } else {
                 clearInterval(typeEffect); // Dừng hiệu ứng khi hoàn tất
+
+                // Sau khi hoàn tất hiệu ứng gõ, thay thế textContent bằng nội dung HTML đầy đủ
+                messageDiv.innerHTML = content;
             }
         }, typingSpeed);
     } else {
-        // Nếu không phải bot, hiển thị nội dung ngay lập tức
-        messageDiv.innerHTML = content; // Sử dụng innerHTML để hiển thị HTML
+        // Hiển thị tin nhắn người dùng ngay lập tức
+        messageDiv.innerHTML = content; // Dùng innerHTML để hỗ trợ Markdown/HTML
     }
 
     messagesDiv.appendChild(messageDiv);
