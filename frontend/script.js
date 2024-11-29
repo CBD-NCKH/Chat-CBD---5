@@ -9,20 +9,24 @@ function addMessage(content, sender, isMarkdown = false, typingSpeed = 30) {
 
     // Xử lý Markdown hoặc nội dung HTML trước khi thực hiện hiệu ứng gõ
     if (isMarkdown) {
-        content = marked.parse(content); // Chuyển đổi Markdown thành HTML
+        content = marked.parse(content); // Chuyển đổi toàn bộ Markdown thành HTML
     }
 
     if (sender === 'bot') {
         // Hiệu ứng gõ từng ký tự cho tin nhắn bot
         let currentIndex = 0;
 
+        // Tạo một div chứa nội dung gõ để tránh ảnh hưởng tới các thẻ HTML
+        const typingContentDiv = document.createElement('div');
+        messageDiv.appendChild(typingContentDiv);
+
         // Chia nhỏ nội dung HTML thành từng ký tự
-        const characters = Array.from(content); // Chuyển đổi thành mảng ký tự
+        const characters = Array.from(content);
 
         const typeEffect = setInterval(() => {
             if (currentIndex < characters.length) {
                 // Gõ thêm ký tự vào nội dung
-                messageDiv.innerHTML += characters[currentIndex];
+                typingContentDiv.innerHTML += characters[currentIndex];
                 currentIndex++;
             } else {
                 clearInterval(typeEffect); // Dừng hiệu ứng khi hoàn tất
