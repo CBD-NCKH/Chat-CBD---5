@@ -7,29 +7,30 @@ function addMessage(content, sender, isMarkdown = false, typingSpeed = 30) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', sender);
 
+    // Xử lý Markdown hoặc nội dung HTML trước khi thực hiện hiệu ứng gõ
+    if (isMarkdown) {
+        content = marked.parse(content); // Chuyển đổi Markdown thành HTML
+    }
+
     if (sender === 'bot') {
         // Hiệu ứng gõ từng ký tự cho tin nhắn bot
         let currentIndex = 0;
+
+        // Chia nhỏ nội dung HTML thành từng ký tự
+        const characters = Array.from(content); // Chuyển đổi thành mảng ký tự
+
         const typeEffect = setInterval(() => {
-            if (currentIndex < content.length) {
-                // Xử lý Markdown nếu cần
-                if (isMarkdown) {
-                    messageDiv.innerHTML = content.slice(0, currentIndex + 1);
-                } else {
-                    messageDiv.textContent = content.slice(0, currentIndex + 1);
-                }
+            if (currentIndex < characters.length) {
+                // Gõ thêm ký tự vào nội dung
+                messageDiv.innerHTML += characters[currentIndex];
                 currentIndex++;
             } else {
-                clearInterval(typeEffect); // Dừng hiệu ứng khi hoàn thành
+                clearInterval(typeEffect); // Dừng hiệu ứng khi hoàn tất
             }
         }, typingSpeed);
     } else {
         // Hiển thị tin nhắn người dùng ngay lập tức
-        if (isMarkdown) {
-            messageDiv.innerHTML = marked.parse(content);
-        } else {
-            messageDiv.textContent = content;
-        }
+        messageDiv.innerHTML = content;
     }
 
     messagesDiv.appendChild(messageDiv);
