@@ -13,25 +13,23 @@ function addMessage(content, sender, isMarkdown = false, typingSpeed = 30) {
     }
 
     if (sender === 'bot') {
-        // Hiệu ứng gõ từng ký tự cho tin nhắn bot
-        let currentIndex = 0;
-
         // Tạo container tạm thời để giữ nội dung HTML hoàn chỉnh
         const tempContainer = document.createElement('div');
         tempContainer.innerHTML = content; // Đưa nội dung HTML đầy đủ vào container
 
-        // Lấy nội dung text mà không làm hỏng cấu trúc HTML
+        // Lấy nội dung text thô để hiển thị từng ký tự
         const rawText = tempContainer.textContent || tempContainer.innerText;
+
+        let currentIndex = 0;
 
         const typeEffect = setInterval(() => {
             if (currentIndex < rawText.length) {
-                // Gõ thêm ký tự vào nội dung
                 messageDiv.textContent += rawText[currentIndex];
                 currentIndex++;
             } else {
                 clearInterval(typeEffect); // Dừng hiệu ứng khi hoàn tất
 
-                // Sau khi hoàn tất hiệu ứng gõ, thay thế textContent bằng nội dung HTML đầy đủ
+                // Sau khi hoàn tất hiệu ứng gõ, thay text thô bằng nội dung HTML hoàn chỉnh
                 messageDiv.innerHTML = content;
             }
         }, typingSpeed);
