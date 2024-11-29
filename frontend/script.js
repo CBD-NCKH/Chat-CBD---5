@@ -3,7 +3,7 @@ const userInput = document.getElementById('user-input');
 const messagesDiv = document.getElementById('messages');
 
 // Hàm thêm tin nhắn vào giao diện với hiệu ứng gõ từng ký tự
-function addMessage(content, sender, isMarkdown = false, typingSpeed = 15) {
+function addMessage(content, sender, isMarkdown = false, typingSpeed = 30) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', sender);
 
