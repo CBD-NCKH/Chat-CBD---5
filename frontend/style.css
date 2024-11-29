@@ -157,3 +157,45 @@ body {
     flex-direction: column;
     gap: 15px;
 }
+
+/* Khung chat đang chờ */
+.message.bot.typing {
+    background-color: #383838; /* Nền giống các tin nhắn bot */
+    color: #d3d3d3; /* Chữ xám sáng */
+    text-align: center; /* Canh giữa */
+}
+
+/* Hiệu ứng chấm tròn */
+.typing-indicator {
+    display: inline-block;
+}
+
+.typing-indicator span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 3px;
+    background-color: #d3d3d3;
+    border-radius: 50%;
+    animation: typing 1.2s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+    animation-delay: 0s;
+}
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* Keyframes cho hiệu ứng */
+@keyframes typing {
+    0%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px); /* Chấm di chuyển lên */
+    }
+}
