@@ -2,16 +2,34 @@ const sendButton = document.getElementById('send-button');
 const userInput = document.getElementById('user-input');
 const messagesDiv = document.getElementById('messages');
 
-// Hàm thêm tin nhắn vào giao diện
-function addMessage(content, sender, isMarkdown = false) {
+// Hàm thêm tin nhắn vào giao diện với hiệu ứng gõ từng ký tự
+function addMessage(content, sender, isMarkdown = false, typingSpeed = 30) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', sender);
 
-    // Kiểm tra xem nội dung có phải Markdown không
-    if (isMarkdown) {
-        messageDiv.innerHTML = marked.parse(content); // Sử dụng marked.parse() để chuyển đổi Markdown
+    if (sender === 'bot') {
+        // Hiệu ứng gõ từng ký tự cho tin nhắn bot
+        let currentIndex = 0;
+        const typeEffect = setInterval(() => {
+            if (currentIndex < content.length) {
+                // Xử lý Markdown nếu cần
+                if (isMarkdown) {
+                    messageDiv.innerHTML = content.slice(0, currentIndex + 1);
+                } else {
+                    messageDiv.textContent = content.slice(0, currentIndex + 1);
+                }
+                currentIndex++;
+            } else {
+                clearInterval(typeEffect); // Dừng hiệu ứng khi hoàn thành
+            }
+        }, typingSpeed);
     } else {
-        messageDiv.textContent = content; // Hiển thị văn bản thông thường
+        // Hiển thị tin nhắn người dùng ngay lập tức
+        if (isMarkdown) {
+            messageDiv.innerHTML = marked.parse(content);
+        } else {
+            messageDiv.textContent = content;
+        }
     }
 
     messagesDiv.appendChild(messageDiv);
@@ -68,9 +86,9 @@ async function sendMessage() {
 
         removeTypingIndicator(); // Xóa hiệu ứng "đang gõ"
 
-        // Kiểm tra và hiển thị phản hồi từ bot
+        // Kiểm tra và hiển thị phản hồi từ bot với hiệu ứng gõ từng ký tự
         if (data.reply) {
-            addMessage(data.reply, 'bot', true); // Hiển thị phản hồi từ bot, xử lý Markdown
+            addMessage(data.reply, 'bot', true, 30); // Tốc độ gõ nhanh hơn (30ms mỗi ký tự)
         } else if (data.error) {
             addMessage(data.error, 'bot'); // Hiển thị thông báo lỗi từ backend
         } else {
