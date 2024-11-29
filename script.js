@@ -7,34 +7,29 @@ function addMessage(content, sender, isMarkdown = false, typingSpeed = 30) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', sender);
 
-    // Xử lý Markdown hoặc nội dung HTML trước khi thực hiện hiệu ứng gõ
+    // Nếu là Markdown, xử lý thành HTML trước khi thêm vào giao diện
     if (isMarkdown) {
-        content = marked.parse(content); // Chuyển đổi toàn bộ Markdown thành HTML
+        content = marked.parse(content); // Chuyển đổi Markdown thành HTML
     }
 
     if (sender === 'bot') {
         // Hiệu ứng gõ từng ký tự cho tin nhắn bot
         let currentIndex = 0;
 
-        // Tạo một div chứa nội dung gõ để tránh ảnh hưởng tới các thẻ HTML
-        const typingContentDiv = document.createElement('div');
-        messageDiv.appendChild(typingContentDiv);
-
-        // Chia nhỏ nội dung HTML thành từng ký tự
+        // Chia nhỏ nội dung HTML thành các ký tự
         const characters = Array.from(content);
 
         const typeEffect = setInterval(() => {
             if (currentIndex < characters.length) {
-                // Gõ thêm ký tự vào nội dung
-                typingContentDiv.innerHTML += characters[currentIndex];
+                messageDiv.innerHTML += characters[currentIndex]; // Thêm từng ký tự
                 currentIndex++;
             } else {
                 clearInterval(typeEffect); // Dừng hiệu ứng khi hoàn tất
             }
         }, typingSpeed);
     } else {
-        // Hiển thị tin nhắn người dùng ngay lập tức
-        messageDiv.innerHTML = content;
+        // Nếu không phải bot, hiển thị nội dung ngay lập tức
+        messageDiv.innerHTML = content; // Sử dụng innerHTML để hiển thị HTML
     }
 
     messagesDiv.appendChild(messageDiv);
