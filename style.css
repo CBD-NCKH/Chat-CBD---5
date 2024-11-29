@@ -165,8 +165,8 @@ body {
 
 .typing-indicator span {
     display: inline-block;
-    width: 12px; /* Tăng kích thước chiều rộng */
-    height: 12px; /* Tăng kích thước chiều cao */
+    width: 18px; /* Tăng kích thước chiều rộng */
+    height: 18px; /* Tăng kích thước chiều cao */
     margin: 0 2px; /* Giảm khoảng cách giữa các chấm */
     background-color: #d3d3d3;
     border-radius: 50%; /* Giữ hình dạng tròn */
