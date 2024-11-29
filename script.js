@@ -18,6 +18,29 @@ function addMessage(content, sender, isMarkdown = false) {
     messagesDiv.scrollTop = messagesDiv.scrollHeight; // Cuộn xuống tin nhắn mới nhất
 }
 
+// Hàm hiển thị hiệu ứng "đang gõ"
+function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.classList.add('message', 'bot', 'typing'); // Thêm lớp "typing"
+    typingDiv.innerHTML = `
+        <div class="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    `;
+    messagesDiv.appendChild(typingDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight; // Cuộn xuống
+}
+
+// Hàm xóa hiệu ứng "đang gõ"
+function removeTypingIndicator() {
+    const typingDiv = document.querySelector('.typing');
+    if (typingDiv) {
+        typingDiv.remove(); // Xóa phần tử "typing"
+    }
+}
+
 // Hàm gửi yêu cầu tới API
 async function sendMessage() {
     const userMessage = userInput.value.trim();
@@ -25,6 +48,8 @@ async function sendMessage() {
 
     addMessage(userMessage, 'user'); // Hiển thị tin nhắn người dùng
     userInput.value = ''; // Xóa nội dung ô nhập
+
+    showTypingIndicator(); // Hiển thị hiệu ứng "đang gõ"
 
     try {
         // Gửi yêu cầu tới backend API
@@ -41,6 +66,8 @@ async function sendMessage() {
 
         const data = await response.json();
 
+        removeTypingIndicator(); // Xóa hiệu ứng "đang gõ"
+
         // Kiểm tra và hiển thị phản hồi từ bot
         if (data.reply) {
             addMessage(data.reply, 'bot', true); // Hiển thị phản hồi từ bot, xử lý Markdown
@@ -50,7 +77,7 @@ async function sendMessage() {
             addMessage('Không nhận được phản hồi.', 'bot');
         }
     } catch (error) {
-        // Hiển thị lỗi kết nối hoặc lỗi khác
+        removeTypingIndicator(); // Xóa hiệu ứng "đang gõ"
         console.error('Lỗi:', error);
         addMessage('Có lỗi xảy ra, vui lòng thử lại sau.', 'bot');
     }
