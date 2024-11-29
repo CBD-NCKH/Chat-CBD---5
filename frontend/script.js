@@ -3,34 +3,45 @@ const userInput = document.getElementById('user-input');
 const messagesDiv = document.getElementById('messages');
 
 // Hàm thêm tin nhắn vào giao diện với hiệu ứng gõ từng ký tự
-function addMessage(content, sender, isMarkdown = false, typingSpeed = 10) {
+function addMessage(content, sender, isMarkdown = false, typingSpeed = 30) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', sender);
 
-    // Nếu là Markdown, xử lý thành HTML trước
+    // Nếu là Markdown, chuyển đổi thành HTML
     if (isMarkdown) {
-        content = marked.parse(content); // Chuyển đổi toàn bộ Markdown thành HTML
+        content = marked.parse(content); // Chuyển đổi Markdown thành HTML
     }
 
     if (sender === 'bot') {
-        // Tạo container tạm thời để giữ nội dung HTML hoàn chỉnh
+        // Tạo container tạm thời để xử lý nội dung HTML
         const tempContainer = document.createElement('div');
-        tempContainer.innerHTML = content; // Đưa nội dung HTML đầy đủ vào container
+        tempContainer.innerHTML = content;
 
-        // Lấy nội dung text thô để hiển thị từng ký tự
-        const rawText = tempContainer.textContent || tempContainer.innerText;
+        // Lấy tất cả các đoạn (nodes) từ HTML
+        const nodes = Array.from(tempContainer.childNodes);
 
-        let currentIndex = 0;
+        let currentNodeIndex = 0; // Để theo dõi đoạn nào đang được xử lý
+        let currentCharIndex = 0; // Để theo dõi ký tự nào đang được gõ trong đoạn
 
         const typeEffect = setInterval(() => {
-            if (currentIndex < rawText.length) {
-                messageDiv.textContent += rawText[currentIndex];
-                currentIndex++;
+            if (currentNodeIndex < nodes.length) {
+                const currentNode = nodes[currentNodeIndex]; // Đoạn hiện tại
+                if (currentNode.nodeType === Node.TEXT_NODE) {
+                    // Xử lý đoạn văn bản
+                    if (currentCharIndex < currentNode.textContent.length) {
+                        messageDiv.innerHTML += currentNode.textContent[currentCharIndex];
+                        currentCharIndex++;
+                    } else {
+                        currentCharIndex = 0; // Reset chỉ số ký tự
+                        currentNodeIndex++; // Chuyển sang đoạn kế tiếp
+                    }
+                } else if (currentNode.nodeType === Node.ELEMENT_NODE) {
+                    // Xử lý đoạn HTML (thêm toàn bộ phần tử)
+                    messageDiv.innerHTML += currentNode.outerHTML;
+                    currentNodeIndex++; // Chuyển sang đoạn kế tiếp
+                }
             } else {
                 clearInterval(typeEffect); // Dừng hiệu ứng khi hoàn tất
-
-                // Sau khi hoàn tất hiệu ứng gõ, thay text thô bằng nội dung HTML hoàn chỉnh
-                messageDiv.innerHTML = content;
             }
         }, typingSpeed);
     } else {
@@ -70,49 +81,4 @@ async function sendMessage() {
     const userMessage = userInput.value.trim();
     if (!userMessage) return; // Không gửi tin nhắn rỗng
 
-    addMessage(userMessage, 'user'); // Hiển thị tin nhắn người dùng
-    userInput.value = ''; // Xóa nội dung ô nhập
-
-    showTypingIndicator(); // Hiển thị hiệu ứng "đang gõ"
-
-    try {
-        // Gửi yêu cầu tới backend API
-        const response = await fetch('http://127.0.0.1:5000/api', { // Sử dụng URL cục bộ
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: userMessage }), // Truyền tin nhắn người dùng
-        });
-
-        if (!response.ok) {
-            // Xử lý lỗi HTTP (ví dụ: 404, 500)
-            throw new Error(`Lỗi ${response.status}: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-
-        removeTypingIndicator(); // Xóa hiệu ứng "đang gõ"
-
-        // Kiểm tra và hiển thị phản hồi từ bot với hiệu ứng gõ từng ký tự
-        if (data.reply) {
-            addMessage(data.reply, 'bot', true, 30); // Tốc độ gõ nhanh hơn (30ms mỗi ký tự)
-        } else if (data.error) {
-            addMessage(data.error, 'bot'); // Hiển thị thông báo lỗi từ backend
-        } else {
-            addMessage('Không nhận được phản hồi.', 'bot');
-        }
-    } catch (error) {
-        removeTypingIndicator(); // Xóa hiệu ứng "đang gõ"
-        console.error('Lỗi:', error);
-        addMessage('Có lỗi xảy ra, vui lòng thử lại sau.', 'bot');
-    }
-}
-
-// Xử lý sự kiện khi nhấn nút "Gửi"
-sendButton.addEventListener('click', sendMessage);
-
-// Xử lý sự kiện khi nhấn phím Enter
-userInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-        sendMessage();
-    }
-});
+    addMessage(userMessage, 'user'); // Hiển thị tin
