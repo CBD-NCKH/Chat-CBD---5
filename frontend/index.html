@@ -3,27 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat CBD</title>
-    <!-- Import font Roboto Mono -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Link to the updated style.css -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Import Marked.js -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <title>Khung Chat</title>
+    <link rel="stylesheet" href="style.css"> <!-- Kết nối với file CSS -->
 </head>
 <body>
-    <div id="chat-container">
-        <div id="chatbox">
-            <div id="messages">
-                <!-- Không cần thêm chữ "Chat CBD" ở đây vì nó đã được thêm vào watermark qua style.css -->
-            </div>
+    <!-- Khung Chat Chính -->
+    <div class="chat-container">
+        <!-- Logo hoặc tiêu đề khung chat -->
+        <div class="chat-logo">ChatCBD</div>
+        
+        <!-- Khu vực tin nhắn -->
+        <div class="messages">
+            <div class="message bot">Xin chào! Tôi có thể giúp gì cho bạn?</div>
+            <div class="message user">Hello!</div>
         </div>
-        <div id="input-area">
+
+        <!-- Khu vực nhập tin nhắn -->
+        <div class="input-container">
             <input type="text" id="user-input" placeholder="Nhập tin nhắn...">
             <button id="send-button">Gửi</button>
         </div>
     </div>
-    <!-- Link to your script.js -->
-    <script src="script.js"></script>
 </body>
 </html>
