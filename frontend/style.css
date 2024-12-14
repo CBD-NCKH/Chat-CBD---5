@@ -34,7 +34,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 120px;
+    font-size: 100px; /* Font chữ lớn hơn */
     color: rgba(0, 0, 0, 0.05); /* Màu chữ mờ nhạt */
     font-weight: bold;
     z-index: -1;
@@ -62,13 +62,14 @@ body {
 
 /* Tin nhắn */
 .message {
-    max-width: 70%;
-    margin: 10px 0;
+    display: inline-block; /* Chỉ chiếm không gian vừa với nội dung */
+    margin: 5px 0;
     padding: 10px 15px;
-    border-radius: 10px;
-    font-size: 14px;
+    border-radius: 15px;
+    font-size: 16px; /* Font chữ lớn hơn */
     line-height: 1.4;
     word-wrap: break-word;
+    max-width: 60%; /* Độ rộng tối đa của tin nhắn */
 }
 
 /* Tin nhắn của bot */
@@ -132,7 +133,7 @@ body {
     border: none;
     border-radius: 20px;
     outline: none;
-    font-size: 14px;
+    font-size: 16px; /* Font chữ lớn hơn */
     background-color: #fff;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -144,7 +145,7 @@ body {
     color: #fff;
     border: none;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
