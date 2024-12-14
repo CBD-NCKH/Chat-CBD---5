@@ -1,30 +1,50 @@
+/* Reset và thiết lập nền */
 body, html {
     margin: 0;
     padding: 0;
-    font-family: "Arial", sans-serif; /* Font chuẩn */
+    font-family: "Arial", sans-serif;
     background-color: #f4f4f4; /* Nền ngoài xám nhạt */
+    height: 100vh; /* Chiếm toàn bộ chiều cao màn hình */
+    display: flex; /* Căn giữa bằng flexbox */
+    justify-content: center; /* Căn giữa ngang */
+    align-items: center; /* Căn giữa dọc */
 }
 
+/* Khung chat chính */
 .chat-container {
-    width: 500px; /* Độ rộng cố định */
+    width: 500px; /* Chiều rộng cố định */
+    max-width: 90%; /* Không chiếm quá nhiều không gian màn hình nhỏ */
     height: 600px; /* Chiều cao cố định */
-    margin: 50px auto; /* Căn giữa khung chat */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #fff; /* Nền trắng cho khung chat */
+    background-color: #fff; /* Màu nền trắng */
     border: 1px solid #ddd; /* Viền xám nhẹ */
-    border-radius: 10px;
+    border-radius: 10px; /* Bo góc khung chat */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    box-sizing: border-box; /* Tính cả padding và border vào kích thước */
 }
 
+/* Logo hoặc tiêu đề chat */
+.chat-logo {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #000; /* Màu đen */
+    text-shadow: 1px 1px 3px rgba(128, 128, 128, 0.7); /* Viền nổi */
+    margin: 10px 0;
+    opacity: 0.7; /* Độ mờ nhẹ */
+}
+
+/* Khu vực tin nhắn */
 .messages {
     flex: 1; /* Khu vực tin nhắn mở rộng */
     overflow-y: auto; /* Cuộn khi nhiều tin nhắn */
     padding: 15px;
-    background-color: #fafafa; /* Nền nhẹ */
+    background-color: #fafafa; /* Nền nhạt */
 }
 
+/* Định dạng tin nhắn */
 .message {
     margin: 10px 0;
     max-width: 70%;
@@ -35,21 +55,24 @@ body, html {
     color: #333;
 }
 
+/* Tin nhắn người dùng */
 .message.user {
-    background-color: #e0e0e0; /* Nền xám nhạt */
+    background-color: #e0e0e0; /* Màu xám nhạt */
     text-align: right;
-    margin-left: auto; /* Đẩy tin nhắn người dùng sang phải */
+    margin-left: auto; /* Đẩy sang phải */
 }
 
+/* Tin nhắn bot */
 .message.bot {
     background-color: #f2f2f2; /* Màu xám nhẹ cho tin nhắn bot */
     text-align: left;
 }
 
+/* Khu vực nhập tin nhắn */
 .input-container {
     display: flex;
     padding: 10px;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #ddd; /* Viền ngăn cách */
 }
 
 #user-input {
@@ -64,7 +87,7 @@ body, html {
 #send-button {
     margin-left: 10px;
     padding: 10px 15px;
-    background-color: #000; /* Màu đen cho nút gửi */
+    background-color: #000; /* Nút gửi màu đen */
     color: #fff;
     font-size: 14px;
     border: none;
@@ -73,17 +96,5 @@ body, html {
 }
 
 #send-button:hover {
-    background-color: #333;
+    background-color: #333; /* Màu tối hơn khi hover */
 }
-
-/* Logo ChatCBD ở giữa khung */
-.chat-logo {
-    text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    color: #000; /* Chữ màu đen */
-    text-shadow: 1px 1px 3px rgba(128, 128, 128, 0.7); /* Viền nổi */
-    margin: 10px 0;
-    opacity: 0.5;
-}
-
