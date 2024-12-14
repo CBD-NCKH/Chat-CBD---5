@@ -9,13 +9,12 @@
 <body>
     <!-- Khung Chat Chính -->
     <div class="chat-container">
-        <!-- Logo hoặc tiêu đề khung chat -->
+        <!-- Logo làm mờ trong nền -->
         <div class="chat-logo">ChatCBD</div>
-        
+
         <!-- Khu vực tin nhắn -->
-        <div class="messages">
-            <div class="message bot">Xin chào! Tôi có thể giúp gì cho bạn?</div>
-            <div class="message user">Hello!</div>
+        <div class="messages" id="messages">
+            <!-- Tin nhắn sẽ hiển thị ở đây -->
         </div>
 
         <!-- Khu vực nhập tin nhắn -->
@@ -24,5 +23,8 @@
             <button id="send-button">Gửi</button>
         </div>
     </div>
+
+    <!-- Kết nối JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
