@@ -1,90 +1,89 @@
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-family: "Arial", sans-serif; /* Dùng font tương tự ChatGPT */
+    font-family: "Arial", sans-serif; /* Font chuẩn */
+    background-color: #f4f4f4; /* Nền ngoài xám nhạt */
 }
 
 .chat-container {
+    width: 500px; /* Độ rộng cố định */
+    height: 600px; /* Chiều cao cố định */
+    margin: 50px auto; /* Căn giữa khung chat */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100vh; /* Chiếm toàn bộ chiều cao màn hình */
-    background-color: #ffffff;
-    position: relative;
-    padding: 10px;
+    background-color: #fff; /* Nền trắng cho khung chat */
+    border: 1px solid #ddd; /* Viền xám nhẹ */
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
 }
 
 .messages {
-    flex: 1; /* Khu vực hiển thị tin nhắn chiếm hết phần còn lại */
-    overflow-y: auto;
-    padding: 20px;
-    background-color: #f9f9f9; /* Màu nền xám nhạt */
-    border-radius: 10px;
+    flex: 1; /* Khu vực tin nhắn mở rộng */
+    overflow-y: auto; /* Cuộn khi nhiều tin nhắn */
+    padding: 15px;
+    background-color: #fafafa; /* Nền nhẹ */
 }
 
 .message {
     margin: 10px 0;
-    max-width: 60%;
+    max-width: 70%;
     word-wrap: break-word;
     padding: 10px 15px;
     border-radius: 15px;
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
 }
 
 .message.user {
-    background-color: #e0e0e0; /* Màu nền xám nhạt */
-    text-align: right; /* Tin nhắn người dùng nằm bên phải */
+    background-color: #e0e0e0; /* Nền xám nhạt */
+    text-align: right;
     margin-left: auto; /* Đẩy tin nhắn người dùng sang phải */
 }
 
 .message.bot {
-    background-color: #f2f2f2; /* Màu nền xám nhạt */
+    background-color: #f2f2f2; /* Màu xám nhẹ cho tin nhắn bot */
     text-align: left;
 }
 
 .input-container {
     display: flex;
     padding: 10px;
-    background-color: #ffffff;
     border-top: 1px solid #ddd;
 }
 
 #user-input {
     flex: 1;
-    padding: 12px 15px;
+    padding: 10px 15px;
     border: 1px solid #ddd;
-    border-radius: 25px;
-    font-size: 16px;
+    border-radius: 20px;
+    font-size: 14px;
     outline: none;
 }
 
 #send-button {
     margin-left: 10px;
-    padding: 12px 20px;
-    background-color: #000; /* Nút gửi màu đen */
+    padding: 10px 15px;
+    background-color: #000; /* Màu đen cho nút gửi */
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
     border: none;
-    border-radius: 25px;
+    border-radius: 20px;
     cursor: pointer;
 }
 
 #send-button:hover {
-    background-color: #333; /* Màu tối hơn khi hover */
+    background-color: #333;
 }
 
-/* Logo chữ ChatCBD */
+/* Logo ChatCBD ở giữa khung */
 .chat-logo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 100px;
+    text-align: center;
+    font-size: 28px;
     font-weight: bold;
-    color: #000; /* Màu đen đậm */
-    text-shadow: 2px 2px 4px rgba(128, 128, 128, 0.7); /* Viền xám nổi */
-    pointer-events: none; /* Không bị ảnh hưởng khi bấm vào */
-    opacity: 0.1;
+    color: #000; /* Chữ màu đen */
+    text-shadow: 1px 1px 3px rgba(128, 128, 128, 0.7); /* Viền nổi */
+    margin: 10px 0;
+    opacity: 0.5;
 }
+
